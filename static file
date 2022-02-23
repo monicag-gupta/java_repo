@@ -7,7 +7,11 @@ public class Hello {
 		A.fns();
 		System.out.println("2.2. I am inside Main! after all static blocks of A");
 		A a=new A();
+		System.out.println("2.3. I am inside Main! after one object of A");
+		A a2=new A();
+		System.out.println("2.4. I am inside Main! after another object of A");
 		System.out.println(a.i + A.s);
+		a2.fn();
 		a.fn();
 	}
 }
