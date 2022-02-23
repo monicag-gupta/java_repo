@@ -43,3 +43,65 @@ class A{
 		System.out.println("As per call of the function i=" + i + " s = " + s);
 	}
 }
+
+
+
+
+
+
+
+
+
+public class Hello {
+	static{
+		System.out.println("1.1. I am static block in the cass which has Main()");
+	}
+	static{
+		System.out.println("1.2. I am static block in the cass which has Main()");
+	}
+	public static void main(String[] args) {
+		System.out.println("2. I am inside Main!");
+		A.fns();
+		System.out.println("2.2. I am inside Main! after all static blocks of A s=" + A.s);
+		A a=new A();
+		System.out.println("2.3. I am inside Main! after one object of A s=" +a.s);
+		A a2=new A();
+		System.out.println("2.4. I am inside Main! after another object of A a2.s= " + a2.s + " a.s ="+ a.s);
+		a2.fn();
+		a.fn();
+		System.out.println(a.i + A.s);
+	}
+	static{
+		System.out.println("1.3. I am static block in the cass which has Main()");
+	}
+}
+class A{
+	static int s;
+	int i;
+	{ //initializer block
+		i=10;
+		System.out.println("5. I am an Initializer" + s);
+		s=30;
+	}
+	static{
+		System.out.println("3. I am a Static Initializer " + s);
+		s=60;
+	}
+	static{
+		System.out.println("4. I am a Static Initializer2 " + s);
+		s=50;
+	}
+	A(){
+		i=20;
+		System.out.println("6. I am the constructor " + s);
+		s=40;
+	}
+	public static void fns(){
+		
+		s=70;
+	}
+	public void fn(){
+		System.out.println("As per call of the function i=" + i + " s = " + s);
+		s=100;
+	}
+}
