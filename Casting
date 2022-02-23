@@ -1,0 +1,58 @@
+public class Hello {
+	public static void main(String[] args) {
+		Dog dog = new Dog();
+		Mammal anim1 = (Mammal) dog;
+		anim1.eat(); // Dog is eating…
+
+		Mammal anim3 = new Dog();
+		anim3.eat(); // Dog is eating…
+		// anim3.bark();
+		Mammal anim2 = new Cat();
+		Cat cat = (Cat) anim2;
+		anim2.eat(); // Eating…
+		cat.meow(); // Meow Meow!
+//		Dog d2 = (Dog) anim2;
+//		d2.eat();
+//		d2.bark();
+
+	}
+
+}
+
+interface Animal {
+	public void eat();
+
+	public void move();
+
+	public void sleep();
+}
+
+abstract class Mammal implements Animal {
+	public void eat() {
+		System.out.println("Eating...");
+	}
+
+	public void move() {
+		System.out.println("Moving...");
+	}
+
+	public void sleep() {
+		System.out.println("Sleeping...");
+	}
+}
+
+class Dog extends Mammal {
+	public void bark() {
+		System.out.println("Gow gow!");
+	}
+
+	public void eat() {
+		System.out.println("Dog is eating...");
+	}
+}
+
+class Cat extends Mammal {
+	public void meow() {
+		System.out.println("Meow Meow!");
+	}
+}
