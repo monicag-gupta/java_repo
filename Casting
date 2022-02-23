@@ -1,19 +1,36 @@
 public class Hello {
 	public static void main(String[] args) {
-		Dog dog = new Dog();
-		Mammal anim1 = (Mammal) dog;
-		anim1.eat(); // Dog is eating…
+		// Dog dog = new Dog();
+		// Mammal anim1 = (Mammal) dog;
+		// anim1.eat(); // Dog is eating…
+		//
+		// Mammal anim3 = new Dog();
+		// anim3.eat(); // Dog is eating…
+		// // anim3.bark();
+		// Mammal anim2 = new Cat();
+		// Mammal m2=anim2;
+		// m2.eat();
+		// Cat cat = (Cat) anim2;
+		// anim2.eat(); // Eating…
+		// cat.meow(); // Meow Meow!
+		// System.out.println(anim2 instanceof Cat);
+		// System.out.println(anim2 instanceof Mammal);
+		// System.out.println(anim2 instanceof Animal);
+		// System.out.println(anim2 instanceof Dog);
+		//
+		// // Dog d2 = (Dog) anim2;
+		// // d2.eat();
+		// // d2.bark();
 
-		Mammal anim3 = new Dog();
-		anim3.eat(); // Dog is eating…
-		// anim3.bark();
-		Mammal anim2 = new Cat();
-		Cat cat = (Cat) anim2;
-		anim2.eat(); // Eating…
-		cat.meow(); // Meow Meow!
-//		Dog d2 = (Dog) anim2;
-//		d2.eat();
-//		d2.bark();
+		Dog dog = new Dog();
+		Cat cat = new Cat();
+		Lion lion = new Lion();
+
+		AnimalTrainer trainer = new AnimalTrainer();
+		trainer.teach(dog);
+		trainer.teach(cat);
+		trainer.teach(lion);
+		
 
 	}
 
@@ -40,7 +57,11 @@ abstract class Mammal implements Animal {
 		System.out.println("Sleeping...");
 	}
 }
-
+class Lion extends Mammal{
+	public void roar(){
+		System.out.println("roar roar!");
+	}
+}
 class Dog extends Mammal {
 	public void bark() {
 		System.out.println("Gow gow!");
@@ -54,5 +75,23 @@ class Dog extends Mammal {
 class Cat extends Mammal {
 	public void meow() {
 		System.out.println("Meow Meow!");
+	}
+}
+
+class AnimalTrainer {
+	public void teach(Mammal anim) { // upcasting
+		// do animal-things
+		anim.move();
+		anim.eat();
+
+		// if there's a dog, tell it barks
+		if (anim instanceof Dog) {
+			Dog dog = (Dog) anim; // Downcasting
+			dog.bark();
+		}
+		if (anim instanceof Cat) {
+			Cat cat = (Cat) anim; // Downcasting
+			cat.meow();
+		}
 	}
 }
