@@ -1,0 +1,50 @@
+import java.util.*;
+
+class Hello {
+	public static void main(String args[]) {
+		List<Emp> l=new ArrayList<>();
+		l.add(new Emp(19,"e1",10));
+		l.add(new Emp(9,"e2",12));
+		l.add(new Emp(30,"e1",9));
+		l.add(new Emp(40,"B1",20));
+		System.out.println("list before sorting:\n" + l);
+		Collections.sort(l);
+		System.out.println("list after sorting according to ID:\n" + l);
+		Collections.sort(l,new sortEmpAlgo());
+		System.out.println("list after sorting according to name:\n" + l);
+		Collections.sort(l,new Emp());
+		System.out.println("list after sorting according to sal:\n" + l);
+		
+	}
+}
+class sortEmpAlgo implements Comparator<Emp>{
+	public int compare(Emp e1, Emp e2) {
+		if(e1.name.compareTo(e2.name) == 0) {
+			return e1.sal - e2.sal;
+		}
+		return e1.name.compareTo(e2.name); 
+	}
+}
+class Emp implements Comparable<Emp>,  Comparator<Emp>
+{
+	public int compareTo(Emp e) {
+		return this.id-e.id;
+	}
+	public int compare(Emp e1, Emp e2) {
+		return e1.sal-e2.sal; 
+	}
+	int id;
+	String name;
+	int sal;
+	
+	@Override
+	public String toString() {
+		return "Emp [id=" + id + ", name=" + name + ", Salary="+ sal +"]";
+	}
+	public Emp(int id, String name, int sal) {
+		this.id = id;
+		this.name = name;
+		this.sal=sal;
+	}
+	public Emp() {}
+}
