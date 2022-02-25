@@ -1,0 +1,57 @@
+interface MathOp1 { 
+ int operation(int x, int y); //binary operation
+}
+interface MathOp2 { 
+	 void operation(int x, int y); //print in the algo
+	}
+interface MathOp3 { 
+	 void operation(); //all work in the algo
+	}
+interface MathOp4 { 
+	 int operation(); //return work from the algo
+	}
+interface MathOp5 { 
+	 int operation(int x); //unary
+	}
+
+public class Hello {
+
+ public static void main(String args[]) {
+  MathOp1 add = (x, y) -> x + y;
+  System.out.println("Sum is: "+add.operation(10, 5)); 
+  
+  MathOp1 sub = (int x, int y) -> x>y ? x - y : y - x ;
+  System.out.println("Difference is: "+sub.operation(10, 5)); 
+  
+  MathOp1 prod = (x, y) -> {return x * y;};
+  System.out.println("Product is: "+prod.operation(10, 5)); 
+  
+  MathOp1 div = (x, y) -> {
+	  					if(y==0) {
+	  						System.out.println("The denominator can not be 0");
+	  						return  0;
+	  					}
+	  					else{
+	  						return x / y;
+	  					}
+  };
+  System.out.println("Division is: "+div.operation(10, 5)); 
+  
+  MathOp2 add2=(x,y)->System.out.println(x+y); // no return value
+  add2.operation(5, 6);
+  
+  MathOp3 add3=()->System.out.println("Hello"); // no return value
+  add3.operation();
+  
+  MathOp4 add4=()-> 0; // no return value
+  System.out.println("return value is: "+add4.operation()); 
+  
+  MathOp5 add5=(x)-> x*x*x; // no return value
+  System.out.println("Cube is: "+add5.operation(3)); 
+  
+  
+  MathOp5 add6=x-> x*x*x; // no return value
+  System.out.println("Cube is: "+add6.operation(4)); 
+  
+ }
+}
