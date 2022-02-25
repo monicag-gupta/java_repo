@@ -43,14 +43,14 @@ public class Hello {
   MathOp3 add3=()->System.out.println("Hello"); // no return value
   add3.operation();
   
-  MathOp4 add4=()-> 0; // no return value
+  MathOp4 add4=()-> 0; //int return type, no parameter
   System.out.println("return value is: "+add4.operation()); 
   
-  MathOp5 add5=(x)-> x*x*x; // no return value
+  MathOp5 add5=(x)-> x*x*x; // int returned, int param
   System.out.println("Cube is: "+add5.operation(3)); 
   
   
-  MathOp5 add6=x-> x*x*x; // no return value
+  MathOp5 add6=x-> x*x*x; // int returned, int param
   System.out.println("Cube is: "+add6.operation(4)); 
   
  }
