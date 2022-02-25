@@ -1,0 +1,64 @@
+interface I1 {
+	void fn();
+}
+interface I3{
+	int fn(String s);
+}
+interface I2 {
+	void fn(int i);
+}
+class A {
+	public void fna() {
+		System.out.println("This is A:fna()");
+	}
+	public void fnc(int i) {
+		System.out.println("This is A:fnc() with value : "+i);
+	}
+
+	public static void fnb() {
+		System.out.println("This is static A:fnb()");
+	}
+
+	public A() {
+		System.out.println("This is a constructor");
+	}
+	public A(int a) {
+		System.out.println("This is a constructor with value : "+a);
+	}
+}
+
+public class Hello {
+
+	public static void main(String args[]) {
+		A a = new A();
+		I1 i1 = () -> a.fna();
+		i1.fn();
+		// Method Reference in Lambda
+		I1 i12=a::fna;  //referring to an object method
+		i12.fn();
+		I2 i2=a::fnc;
+		i2.fn(8);
+		I1 i13=A::fnb;  //referring to an class/static method
+		i13.fn();
+		I1 i14=A::new;  //referring to a constructor
+		i14.fn();
+		I2 i22=A::new;
+		i22.fn(8);
+		
+		//there are certain objects defined in the JDK. it's referred as a static method
+		//as their object creation is inferred
+		String ss="abc";
+		int li=ss.length();
+		System.out.println(li);
+		
+		//Lambda:
+		I3 i31=(s)->s.length();
+		System.out.println("length of Hello: " + i31.fn("Hello"));
+		
+		//Method reference to arbitrary object
+		I3 i32=String::length;
+		System.out.println("length of Hello: " + i32.fn("Hello"));		
+		
+
+	}
+}
