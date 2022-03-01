@@ -1,0 +1,80 @@
+public class Hello {
+
+	public static void main(String args[]) {
+		String s;
+		int d;
+		int i = 0;
+		try {
+			if (args.length % 2 == 1)
+				throw new ArithmeticException("Not having , even inputs");
+
+			try {
+				for (; i < args.length - 1; i++) {
+					if (i % 2 == 0)
+						System.out.print(args[i] + " : ");
+					if (i % 2 == 1) {
+						if (args[i].charAt(args[i].length() - 1) == ',') {
+							s = args[i].substring(0, args[i].length() - 1);
+							try {
+								d = Integer.parseInt(s);
+								d = d % 8 == 0 ? d / 8 : (d / 8) + 1;
+								System.out.println(d + " Days.");
+							} catch (Exception e) {
+								System.out.println("Input hours are not in numerals");
+							}
+						} else
+							throw new ArithmeticException("Not having , at proper places");
+					}
+
+				}
+				s = args[i].substring(0, args[i].length());
+				try {
+					d = Integer.parseInt(s);
+
+					d = d % 8 == 0 ? d / 8 : (d / 8) + 1;
+					System.out.println(d + " Days.");
+				} catch (Exception e) {
+					System.out.println("Input hours are not in numerals");
+				}
+				// System.out.println(args[i]);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+}
+
+/*
+ * if args is:
+ * Java 73, MySQL 15, Design_patterns 14, Unit_Tests 23
+ * output:
+Java : 10 Days.
+MySQL : 2 Days.
+Design_patterns : 2 Days.
+Unit_Tests : 3 Days.
+
+* if args is:
+ * Java 73, MySQL 15, Design_patterns 14, Unit_Tests 23 mongo
+ * output:
+java.lang.ArithmeticException: Not having , even inputs
+
+
+
+* if args is:
+ * Java 73, MySQL 15, Design_patterns 14 Unit_Tests 23 mongo
+ * output:
+Java : 10 Days.
+MySQL : 2 Days.
+Design_patterns : java.lang.ArithmeticException: Not having , at proper places
+
+* if args is:
+ * Java 73, MySQL 15, Design_patterns four, Unit_Tests 23 mongo
+ * output:
+Java : 10 Days.
+MySQL : 2 Days.
+Design_patterns : Input hours are not in numerals
+Unit_Tests : 3 Days.
+*/
+
