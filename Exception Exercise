@@ -1,0 +1,78 @@
+import java.util.*;
+class InvalidAgeException extends RuntimeException{
+	InvalidAgeException(String s){super(s);}
+}
+class InvalidNameException extends RuntimeException{
+	InvalidNameException(String s){super(s);}
+}
+class Emp{
+	String name;
+	int age;
+	Emp(){}
+	Emp(String n, int a){name=n;age=a;}
+	public String toString() {
+		return "\nName: "+name+" Age: "+age+"\n";
+	}
+}
+public class Hello {
+	public static boolean validateAge(int age) {
+		try {
+		if (age < 0) { 
+			throw new InvalidAgeException("Ghosts are not allowed as Employees"); 
+			} 
+			if (age < 18) 
+			throw new InvalidAgeException("not valid"); 
+			if (age > 60) { 
+			throw new InvalidAgeException("Seniors are not allowed as Employees"); 
+			} 
+			if (age > 100) { 
+			throw new InvalidAgeException("Purvaj are not allowed as Employees"); 
+			} else {
+			return true;
+			}
+	}catch(Exception e) {System.out.println(e+"\nTry Again1"); return false;}
+		//return true;
+	}
+	public static boolean validateName(String na, List<Emp> a) {
+		try {
+		for(Emp e : a) {
+			if(e.name.equals(na)) {
+				throw new InvalidNameException("Duplicate Name found.. try again");
+			}
+		}
+	}catch(Exception e) {System.out.println(e); return false;}
+		return true;
+	}
+
+	public static void main(String args[]) {
+			List<Emp> emps=new ArrayList<>();
+			Scanner sc = new Scanner(System.in);
+			int ch;
+			String name;
+			int age;
+			while(true) {
+			System.out.println("Menu:\n1.Add Emp\n2.Display List\n3.Exit.\nEnterChoice:");
+			ch=sc.nextInt();
+			sc.nextLine();
+			if(ch==1) {
+				System.out.println("Enter the Emp Name");
+				name=sc.nextLine();				
+				System.out.println("Enter the Emp Age");
+				age=sc.nextInt();
+				if(validateAge(age) && validateName(name, emps)) {
+					emps.add(new Emp(name,age));
+				}
+				
+			}
+			else if(ch==2) {
+				System.out.println(emps);
+			}
+			else if (ch==3) {
+				break;
+			}
+			else {
+				System.out.println("Invalid choice..try again");
+			}
+			}
+	}
+}
