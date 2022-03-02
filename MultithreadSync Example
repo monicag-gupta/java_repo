@@ -1,0 +1,90 @@
+class Account { // the 'monitor'
+	int balance;
+
+	// if 'synchronized' is removed, the outcome is unpredictable
+	public synchronized void deposit(int deposit_amount)  {
+		System.out.println("\nDeposit amount" );
+		try{
+			Thread.sleep(100);
+		}catch(Exception e) {}
+		System.out.println( deposit_amount);
+		balance += deposit_amount;
+	}
+
+	public synchronized void withdraw(int deposit_amount) {
+		System.out.println("\nWithdrawn amount"); 
+		try{
+			Thread.sleep(110);
+		}catch(Exception e) {}
+		System.out.println( deposit_amount);
+		balance -= deposit_amount;
+	}
+
+	public synchronized void enquire() {
+		System.out.println("\nBalance=");
+		try{
+			Thread.sleep(30);
+		}catch(Exception e) {}
+		System.out.println( balance);
+	}
+}
+
+class DepoThread implements Runnable {
+	Account account;
+	int amt;
+
+	public DepoThread(Account s, int a) {
+		account = s;
+		amt = a;
+	}
+
+	public void run() {
+		account.deposit(amt);
+	}
+}
+
+class DrawThread implements Runnable {
+	Account account;
+	int amt;
+
+	public DrawThread(Account s, int a) {
+		account = s;
+		amt = a;
+	}
+
+	public void run() {
+		account.withdraw(amt);
+	}
+}
+
+class BalThread implements Runnable {
+	Account account;
+
+	public BalThread(Account s) {
+		account = s;
+	}
+
+	public void run() {
+		account.enquire();
+	}
+}
+
+public class InternetBankingSystem {
+	public static void main(String[] args) {
+		Account accountObject = new Account();
+		Thread t1 = new Thread(new DepoThread(accountObject, 10000));
+		Thread t2 = new Thread(new DrawThread(accountObject, 2000));
+		Thread t3 = new Thread(new BalThread(accountObject));
+		t1.start();
+		t2.start();
+		t3.start();
+		Account accountObject2 = new Account();
+		Thread t11 = new Thread(new DepoThread(accountObject2, 10000));
+		Thread t12 = new Thread(new DrawThread(accountObject2, 2000));
+		Thread t13 = new Thread(new BalThread(accountObject2));
+		
+		t11.start();
+		t12.start();
+		t13.start();
+	}
+}
