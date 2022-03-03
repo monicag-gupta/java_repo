@@ -5,7 +5,7 @@ class Chat {
 	Scanner sc = new Scanner(System.in);
 	String m="";
 	static {
-		System.out.println("To quit type : q");
+		System.out.println("To quit type : bye");
 	}
 	public synchronized void Question() {
 		if (flag) {
@@ -17,7 +17,7 @@ class Chat {
 		}
 		System.out.println("Person 1:");
 		m=sc.nextLine();
-		if(m.equals("q")) {System.exit(0);}
+		if(m.equals("bye")) {System.exit(0);}
 		//System.out.println(m);
 		flag = true;
 		notify();
@@ -33,7 +33,7 @@ class Chat {
 		}
 		System.out.println(msg);
 		m=sc.nextLine();
-		if(m.equals("q")) {System.exit(0);}
+		if(m.equals("bye")) {System.exit(0);}
 		//System.out.println(m);
 		flag = false;
 		notify();
