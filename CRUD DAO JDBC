@@ -1,0 +1,155 @@
+Table in MySQL:
+create table emp(id int, name varchar(40), age int);   
+Insert into emp values(101, 'Emp1', 30); 
+Insert into emp values(102, 'Emp2', 35); 
+
+
+Entity Model: This is a model of the actual table EMP:
+
+package Entity;
+
+public class Emp implements Comparable<Emp> {
+	int id;
+	String name;
+	int age;
+	public int compareTo(Emp e) {
+		return this.id-e.id;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	@Override
+	public String toString() {
+		return "\nEmp [id=" + id + ", name=" + name + ", age=" + age + "]";
+	}
+	public Emp(int id, String name, int age) {
+		//super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+	public Emp() {
+	}	
+}
+
+
+
+The DAO class representing the ORM for JDBC: Please note this DAO does not work for default emps in the constructor of DAO.
+
+package ORM;
+
+import java.sql.*;
+import Entity.*;
+import java.util.*;
+
+public class EmpDAO {
+	Connection con;
+	Statement stmt;
+	public void conn() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javadb", "root", "");
+			stmt = con.createStatement();
+		} catch (Exception exp) {
+			System.out.println(exp);
+		}
+	}
+
+	public void save(Emp e) {
+		try {
+			conn();
+			int s = stmt.executeUpdate(
+					"insert into emp values(" + e.getId() + ",'" + e.getName() + "'," + e.getAge() + ")");
+			System.out.println(s + " Records inserted");
+			con.close();
+		} catch (Exception exp) {
+			System.out.println(exp);
+		}
+	}
+
+	public void update(Emp e) {
+		try {
+			conn();
+			int s = stmt.executeUpdate("update Emp set id=" + e.getId() + ", name='" + e.getName() + "',age="
+					+ e.getAge() + " where id=" + e.getId());
+			System.out.println(s + " Records Updated");
+			con.close();
+		} catch (Exception exp) {
+			System.out.println(exp);
+		}
+	}
+
+	public void delete(Emp e) {
+		try {
+			conn();
+			int s = stmt.executeUpdate("delete from Emp where id=" + e.getId());
+			System.out.println(s + " Records deleted");
+			con.close();
+		} catch (Exception exp) {
+			System.out.println(exp);
+		}
+	}
+
+	public List<Emp> getEmps() {
+		List<Emp> emps = new ArrayList<Emp>();
+		//Emp e = new Emp();
+		try {
+			conn();
+			ResultSet rs = stmt.executeQuery("select * from emp");
+			while (rs.next()) {
+//				e.setId(rs.getInt(1));
+//				e.setName(rs.getString(2));
+//				e.setAge(rs.getInt(3));
+//				emps.add(e);
+				emps.add(new Emp(rs.getInt(1),rs.getString(2),rs.getInt(3)));
+			}
+			con.close();
+		} catch (Exception exp) {
+			System.out.println(exp);
+		}
+		return emps;
+	}
+
+}
+
+
+The Driver class calling the ORM:
+
+package Main;
+import ORM.*;
+import Entity.*;
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Emp e=new Emp(104, "Harry Potter", 18);
+		EmpDAO d=new EmpDAO();
+		//d.save(e);
+//		e.setAge(24);
+//		d.update(e);
+//		d.delete(e);
+		List<Emp> emps=d.getEmps();
+		System.out.println(emps);
+
+
+	}
+
+}
+
+
